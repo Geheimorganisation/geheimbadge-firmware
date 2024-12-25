@@ -4,7 +4,7 @@ from badge import Badge, ButtonPressType, ButtonPressDuration
 from flags import flags
 from machine import Timer
 from random import choice
-from util import wifi_connect
+from util import ble_repl, wifi_connect
 import webrepl
 
 badge = Badge(np_pin_num=20, battsense_on_pin_num=14, button_pin_num=7)
@@ -56,6 +56,11 @@ def button_cb(press_type, press_duration):
 badge.callback(button_cb)
 next_animation()
 
-connected = wifi_connect()
-if connected:
-    webrepl.start(password="geheim")
+try:
+    connected = wifi_connect()
+    if connected:
+        webrepl.start(password="geheim")
+except:
+    pass
+
+ble_repl()
